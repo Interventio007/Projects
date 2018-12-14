@@ -1,6 +1,5 @@
-Snake Game:
+These are the mini projects i have worked on during my free time:
 
-Its a very basic snake game, for now the snake movement speed is fixed and the game is not complete, game runs without a hitch and the game just pauses if the snake hits the edge of the window or hits itself, to restart the game re-run the program.
+snake.py: is a basic snake game which increments speed based on your score 
 
-It does not display any score on the screen but is displayed on the terminal once you crash the snake.
-
+credit_check.py : is to check whether a given card number is valid or not using luhns algorithm
