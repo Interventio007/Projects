@@ -57,35 +57,34 @@ class whatsapp_Login():
         diff_in_time = (user_input_time_striped - current_time_proper_striped)
         diff_in_time = str(diff_in_time)
         print(diff_in_time)
+        # self.driver.quit()
+        time_to_wait_secs = ""
+        try:
+            time_to_wait_secs = (
+                        (int(diff_in_time[0:2]) * 3600) + (int(diff_in_time[3:5]) * 60) + (int(diff_in_time[6:8])))
+        except ValueError:
+            diff_in_time = "0" + diff_in_time
+            print(diff_in_time)
+            time_to_wait_secs = (
+                        (int(diff_in_time[0:2]) * 3600) + (int(diff_in_time[3:5]) * 60) + (int(diff_in_time[6:8])))
+
+        print(time_to_wait_secs)
+
+        time.sleep(time_to_wait_secs - 5)
+
+        search_chat = self.driver.find_element_by_tag_name("input")
+        search_chat.send_keys(user_req_contact)
+        time.sleep(5)
+        self.driver.find_element_by_class_name("_2wP_Y").click()
+        time.sleep(5)
+        self.driver.find_element_by_class_name("_1Plpp").click()
+        text_input_selector = self.driver.find_element_by_class_name("_1Plpp")
+        text_input_selector.send_keys(user_input)
+        self.driver.find_element_by_class_name("_35EW6").click()
+
+        time.sleep(30)
         self.driver.quit()
-        # # time_to_wait_secs = ""
-        # try:
-        #     time_to_wait_secs = ((int(diff_in_time[0:2]) * 3600) + (int(diff_in_time[3:5]) * 60) + (int(diff_in_time[6:8])))
-        # except ValueError:
-        #     diff_in_time = "0" + diff_in_time
-        #     print(diff_in_time)
-        #     time_to_wait_secs = ((int(diff_in_time[0:2]) * 3600) + (int(diff_in_time[3:5]) * 60) + (int(diff_in_time[6:8])))
-        #
-        # print(time_to_wait_secs)
-        #
-        # time.sleep(time_to_wait_secs - 10)
-        #
-        # self.driver.quit()
-        #
-        # search_chat = self.driver.find_element_by_tag_name("input")
-        # search_chat.send_keys(user_req_contact)
-        # time.sleep(5)
-        # self.driver.find_element_by_class_name("_2wP_Y").click()
-        # time.sleep(5)
-        # self.driver.find_element_by_class_name("_1Plpp").click()
-        # text_input_selector = self.driver.find_element_by_class_name("_1Plpp")
-        # text_input_selector.send_keys(user_input)
-        # self.driver.find_element_by_class_name("_35EW6").click()
-        #
-        # time.sleep(30)
-        # self.driver.quit()
 
 
 if __name__ == '__main__':
-
     start = whatsapp_Login()
