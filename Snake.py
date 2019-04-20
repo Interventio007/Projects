@@ -18,7 +18,7 @@ segment_height = 10
 # x_change = segment_width + segment_margin
 x_change = segment_width
 y_change = 0
-
+clocks = 10
 snake_length = 20
 
 global circ_check
@@ -29,7 +29,6 @@ score = 0
 display_width = 600
 display_height = 800
 counter = 0
-
 
 class Segment(pygame.sprite.Sprite):
     """ Class to represent one segment of the snake. """
@@ -72,6 +71,14 @@ class Segment(pygame.sprite.Sprite):
         
 
 pygame.init()
+
+font = pygame.font.SysFont('Agency FB', 30) 
+
+text = font.render(str(score),True,WHITE)
+text_rect = text.get_rect()
+
+text_rect.center = (10,10)
+
 
 # Create an 800x600 sized screen
 screen = pygame.display.set_mode([800, 600])
@@ -146,9 +153,11 @@ while not done:
         circ_check = True
         snake_length += 1
         score += 10
+        text = font.render(str(score),True,WHITE)
         counter+=1
-        if counter == 10:
-            score+=100
+        rands = random.randint(1,10)
+        if counter == rands:
+            score+=(rands*10)
             counter=0
 
     pygame.draw.rect(screen, (0, 0, 255), [rand_x, rand_y, 10, 10])
@@ -167,27 +176,20 @@ while not done:
             print(score)
             pause=True
             segment.paused()
-            
-            
-    # Flip screen
-    pygame.display.flip()
-
-    if score < 100:
-        clock.tick(10)
-    elif score >= 100 and score < 250:
-        clock.tick(15)
-    elif score >=250 and score < 500:
-        clock.tick(20)
-    elif score >= 500 and score < 1000:
-        clock.tick(30)
-    elif score >= 1000 and score < 5000:
-        clock.tick(40) 
-    elif score >= 5000 and score < 10000:
-        clock.tick(50)
-    elif score >= 10000:
-        clock.tick(60)              
-
     
 
-pygame.quit()
+    screen.blit(text,text_rect)        
+    # Flip screen
+    pygame.display.flip()
+   
+    if score == 0:
+        clock.tick(clocks)
+    
+    elif score % 100 != 0:
+        clock.tick(clocks)
 
+    elif score % 100 == 0:
+        clocks = clocks + 10
+        clock.tick(clocks)
+
+pygame.quit()
